@@ -1678,3 +1678,8 @@ section {
     float: none;
   }
 }
+
+#btn-Daftar{
+  background: #cbd400;
+  color: #000;
+}

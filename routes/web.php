@@ -7,24 +7,28 @@ use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\NarasumberController;
 use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\RedirectController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\CheckRole;
 use Illuminate\Support\Facades\Route;
 
 
 // Rute untuk login, register, dan logout
 Route::middleware('guest')->group(function () {
-    Route::get('/home', [LandingPageController::class, 'index'])->name('home');
-    Route::get('/event/{id}', [LandingPageController::class, 'detail'])->name('eventLp');
     Route::get('/login', [AuthController::class, 'login'])->name('login');
     Route::post('/login', [AuthController::class, 'authenticate'])->name('auth.login');
     Route::get('/registrasi', [AuthController::class, 'register'])->name('auth.register');
     Route::post('/registrasi', [AuthController::class, 'store'])->name('auth.store');
+})->withoutMiddleware([CheckRole::class]);;
+
+Route::group(['middleware' => ['auth', 'checkrole:1,2']], function () {
+    Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
+    Route::get('/redirect', [RedirectController::class, 'cek']);
 });
 
-    Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
-
-Route::middleware('auth')->group(function () {
+// Route::middleware(['auth', 'checkrole:Admin'])->group(function () {
+Route::group(['middleware' => ['auth', 'checkrole:1']], function () {
     // Tempatkan rute yang membutuhkan autentikasi di sini
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/event', [EventController::class, 'index'])->name('event');
@@ -48,5 +52,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/payment', [PaymentController::class, 'index']);
     Route::get('/user', [UserController::class, 'index'])->name('user');
     Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+    Route::put('/profile/update', [UserController::class, 'updateProfile'])->name('profile.update');
 
+});
+
+Route::group(['middleware' => ['auth', 'checkrole:2']], function () {
+    Route::get('/home', [LandingPageController::class, 'index'])->name('home');
+    Route::get('/event/{id}', [LandingPageController::class, 'detail'])->name('eventLp');
 });

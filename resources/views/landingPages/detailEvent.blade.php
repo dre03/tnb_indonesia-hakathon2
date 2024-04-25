@@ -75,22 +75,18 @@
         </div>
     </div>
 </div>
-<!-- End Popup Form -->
 
 <main id="main">
-    <!-- ======= Breadcrumbs ======= -->
     <section id="breadcrumbs" class="breadcrumbs">
         <div class="container">
             <ol>
-                <li><a href="{{route('home')}}#event">Home</a></li>
+                <li><a href="{{ route('home') }}#event">Home</a></li>
                 <li>Event Details</li>
             </ol>
             <h2>Event Details</h2>
         </div>
     </section>
-    <!-- End Breadcrumbs -->
 
-    <!-- ======= Portfolio Event Section ======= -->
     <section id="portfolio-details" class="portfolio-details">
         <div class="container">
 
@@ -122,7 +118,7 @@
                             <li><strong>Date</strong>: {{ $event->date }}</li>
                             <li><strong>Location</strong>: {{ $event->location }}</li>
                         </ul>
-                        <button id="buyTicketBtn">Registrasi</button>
+                        <button data-bs-toggle="modal" data-bs-target="#daftarEvent">Registrasi</button>
                     </div>
                     <div class="portfolio-description">
                         <h2>Description</h2>
@@ -134,6 +130,66 @@
             </div>
         </div>
     </section>
+
+    {{-- Modal Deaftar Event --}}
+    <div class="modal fade" id="daftarEvent" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Registrasi Event</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="card-body">
+                        <!-- Multi Columns Form -->
+                        <form class="row g-3" action="" method="POST">
+                            @csrf
+                            <div class="col-md-6">
+                                <label for="name" class="form-label">Name Lengkap</label>
+                                <input type="text" class="form-control" id="name" name="name"
+                                    value="{{ old('name') }}" required>
+                                @error('name')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="phone_number" class="form-label">No Telephon</label>
+                                <input type="text" class="form-control" id="phone_number" name="phone_number"
+                                    value="{{ old('phone_number') }}" required>
+                                @error('phone_number')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <label for="gender" class="form-label">Jenis Kelamin</label>
+                                <select name="gender" id="gender" class="form-select" required>
+                                    <option value="">Pilih Jenis Kelamin</option>
+                                    <option value="Laki-Laki" {{ old('gender') == 'Laki-Laki' ? 'selected' : '' }}>
+                                        Laki-Laki</option>
+                                    <option value="Perempuan" {{ old('gender') == 'Perempuan' ? 'selected' : '' }}>
+                                        Perempuan</option>
+                                </select>
+                                @error('gender')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <label for="address" class="form-label">Alamat</label>
+                                <input type="text" class="form-control" id="address" name="address" required>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" id="btn-Daftar">Daftar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- End Event Details Section -->
 </main><!-- End #main -->
 @include('landingPages.layouts.footer')

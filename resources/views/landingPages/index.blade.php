@@ -76,30 +76,28 @@
     </div>
 </div>
 <!-- End Popup Form -->
-
-<!-- ======= Hero Section ======= -->
-<section id="hero" class="d-flex align-items-center">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
-                data-aos="fade-up" data-aos-delay="200">
-                <h1>Welcome To Our Transformational Business Network Indonesia</h1>
-                <h2>Better Social Foundations solve
-                    social problems through social entrepreneurship</h2>
-                <div class="d-flex justify-content-center justify-content-lg-start">
-                    <a href="#about" class="btn-get-started scrollto">Get Started</a>
-                    <a href="https://www.youtube.com/watch?v=Kgrumz_76RI" class="glightbox btn-watch-video"><i
-                            class="bi bi-play-circle"></i><span>Watch Video</span></a>
+    <!-- ======= Hero Section ======= -->
+    <section id="hero" class="d-flex align-items-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 d-flex flex-column justify-content-center mt-5 pt-lg-0 order-2 order-lg-1"
+                    data-aos="fade-up" data-aos-delay="200">
+                    <h1>Welcome To Our Transformational Business Network Indonesia</h1>
+                    <h2>Better Social Foundations solve
+                        social problems through social entrepreneurship</h2>
+                    {{-- <div class="d-flex justify-content-center justify-content-lg-start pb-5">
+                        <a href="#about" class="btn-get-started scrollto">Get Started</a>
+                        <a href="https://www.youtube.com/watch?v=Kgrumz_76RI" class="glightbox btn-watch-video"><i
+                                class="bi bi-play-circle"></i><span>Watch Video</span></a>
+                    </div> --}}
+                </div>
+                <div class="col-lg-6 order-1 order-lg-2 hero-img pt-5" data-aos="zoom-in" data-aos-delay="200">
+                    <img src="{{ asset('assetsFe/img/hero-images.png') }}" class="img-fluid animated" alt="">
                 </div>
             </div>
-            <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
-                <img src="{{ asset('assetsFe/img/hero-images.png') }}" class="img-fluid animated" alt="">
-            </div>
         </div>
-    </div>
-</section>
-<!-- End Hero -->
-
+    </section>
+    <!-- End Hero -->
 <main id="main">
     <!-- ======= About Us Section ======= -->
     <section id="about" class="about">
@@ -107,7 +105,6 @@
             <div class="section-title">
                 <h2>About Us</h2>
             </div>
-
             <div class="content">
                 <div class="text-center">
                     <p>
@@ -135,9 +132,7 @@
                     <div class="icon-box">
                         <div class="icon"><i class="bx bxl-dribbble"></i></div>
                         <h4>Investment</h4>
-                        <p>Are you an entrepreneur seeking funding or an investor interested in joining our network? We
-                            function as a strategic bridge connecting entrepreneurs and investors in Indonesia, offering
-                            distinctive investment services tailored to meet the market's needs.</p>
+                        <p>Join our investment services to start a promising financial journey. With a targeted and risk-based approach, we help you plan and manage your investment portfolio wisely.</p>
                     </div>
                 </div>
 
@@ -146,10 +141,24 @@
                     <div class="icon-box">
                         <div class="icon"><i class="bx bx-file"></i></div>
                         <h4>Advisory</h4>
-                        <p>Utilizing its core network and expertise, we have established an advisory entity that
-                            provides a wide range of key services. These services include research, capacity building,
-                            on-demand consultation, and educational content creation, all aimed at creating a positive
-                            impact for our extensive beneficiaries.</p>
+                        <p>Our Advisory Services provide professional guidance in various aspects of life, from finances, careers, relationships, to mental health. With extensive experience and deep understanding.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in"
+                    data-aos-delay="200">
+                    <div class="icon-box">
+                        <div class="icon"><i class="ri-calendar-event-fill"></i></div>
+                        <h4>Event</h4>
+                        <p>We prepare every detail to ensure your event runs smoothly. With rich experience in the industry, our team will provide creative concepts and quality services to make every moment memorable.</p>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in"
+                    data-aos-delay="200">
+                    <div class="icon-box">
+                        <div class="icon"><i class="ri-broadcast-fill"></i></div>
+                        <h4>Collaboration</h4>
+                        <p>Collaboration plays a key role in increasing team productivity and creativity. Collaboration services enable users to share ideas, information, and resources efficiently.</p>
                     </div>
                 </div>
             </div>
@@ -174,13 +183,13 @@
                                         alt="">
                             </div>
                         @else
-                            <img src="https://randomuser.me/api/portraits/men/{{ rand(1, 99) }}.jpg" class="img-fluid"
-                                alt="">
+                            <img src="https://randomuser.me/api/portraits/men/{{ rand(1, 99) }}.jpg"
+                                class="img-fluid" alt="">
                         </div>
                 @endif
                 <div class="member-info">
                     <h4>{{ $item->name }}</h4>
-                    <span>{{ $item->name }}</span>
+                    <span>{{ $item->position }}</span>
                     <p>{{ $item->location }}</p>
                     <div class="social">
                         <a href=""><i class="ri-twitter-fill"></i></a>
@@ -227,17 +236,19 @@
             <div class="row justify-content-center">
                 @foreach ($events as $item)
                     <div class="col-lg-4 mt-5" data-aos="fade-up" data-aos-delay="100">
-                        <div class="box featured">
+                        <div class="box featured h-auto Width auto">
                             <h3>{{ $item->name }}</h3>
                             @if ($item->price)
                                 <h4><sup>Rp.</sup>{{ $item->price }}<span>1 Person</span></h4>
                             @else
                                 <h4><sup></sup>{{ $item->eventCategory->name }}</h4>
                             @endif
-                             @if ($item->thumbnail)
-                                    <img src="{{ asset('/storage/thumbnails/' . $item->thumbnail) }}" style="max-width: 100%; width: 100%" alt="Error Image">
-                              @else
-                            <img src="https://www.tbnindonesia.org/images/transformational-sales-conference-2023-.jpg" alt="" class="img-fluid">
+                            @if ($item->thumbnail)
+                                <img src="{{ asset('/storage/thumbnails/' . $item->thumbnail) }}"
+                                    style="max-width: 100%; width: 100% height: 300px" alt="Error Image">
+                            @else
+                                <img src="https://marketplace.canva.com/EAF2eKm8GO4/1/0/1600w/canva-teal-dan-kuning-minimalist-seminar-kewirausahaan-linkedin-post-iRB95LwjCfE.jpg"
+                                    style="max-width: 100%; width: 100% height: 300px" alt="Error Image">
                             @endif
                             <div class="d-flex justify-content-between">
                                 <div>

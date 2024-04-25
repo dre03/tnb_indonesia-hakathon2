@@ -19,25 +19,25 @@ class UserSeeder extends Seeder
                 'name' => 'Bambang Surya',
                 'email' => 'bambang@example.com',
                 'phone_number' => '081234567890',
-                'username' => 'bambangsurya',
-                'password' => Hash::make('bambang123'),
+                'username' => 'bambang',
+                'password' => Hash::make('bambang'),
                 'brith_date' => '1990-05-15',
                 'brith_place' => 'Jakarta',
                 'gender' => 'Laki-Laki',
                 'address' => 'Jl. Sudirman No. 123',
-                'role_id' => 1
+                'role_id' => 2
             ],
             [
-                'name' => 'Ani Kartika',
+                'name' => 'Admin10',
                 'email' => 'ani@example.com',
                 'phone_number' => '085678901234',
-                'username' => 'anikartika',
-                'password' => Hash::make('ani123'),
+                'username' => 'admin10 ',
+                'password' => Hash::make('admin10'),
                 'brith_date' => '1988-10-20',
                 'brith_place' => 'Bandung',
                 'gender' => 'Perempuan',
                 'address' => 'Jl. Pahlawan No. 45',
-                'role_id' => 2
+                'role_id' => 1
             ],
             [
                 'name' => 'Eko Wijaya',

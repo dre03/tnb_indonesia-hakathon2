@@ -120,7 +120,6 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-
                         <li>
                             <form action="{{route('auth.logout')}}" method="POST">
                                 @csrf

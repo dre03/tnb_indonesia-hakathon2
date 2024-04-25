@@ -15,16 +15,11 @@
             <div class="col-xxl-4 col-md-4">
                 <div class="card info-card sales-card">
                     <div class="card-body">
-                        <h5 class="card-title">Sales <span>| Today</span></h5>
-
+                        <h5 class="card-title">Participan <span>| This year</span></h5>
                         <div class="d-flex align-items-center">
-                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                <i class="bi bi-cart"></i>
-                            </div>
                             <div class="ps-3">
-                                <h6>145</h6>
-                                <span class="text-success small pt-1 fw-bold">12%</span> <span
-                                    class="text-muted small pt-2 ps-1">increase</span>
+                                <span class="text-success small pt-1 fw-bold fs-2">{{$countParticipant}}</span> <span
+                                    class="text-muted small pt-2 ps-1 ">participant</span>
                             </div>
                         </div>
                     </div>
@@ -34,48 +29,34 @@
             <div class="col-xxl-4 col-md-4">
                 <div class="card info-card sales-card">
                     <div class="card-body">
-                        <h5 class="card-title">Sales <span>| Today</span></h5>
-
+                        <h5 class="card-title">Event <span>| This year</span></h5>
                         <div class="d-flex align-items-center">
-                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                <i class="bi bi-cart"></i>
-                            </div>
                             <div class="ps-3">
-                                <h6>145</h6>
-                                <span class="text-success small pt-1 fw-bold">12%</span> <span
-                                    class="text-muted small pt-2 ps-1">increase</span>
-
+                                <span class="text-success small pt-1 fw-bold fs-2">{{$countEvent}}</span> <span
+                                    class="text-muted small pt-2 ps-1">event</span>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
             <div class="col-xxl-4 col-md-4">
                 <div class="card info-card sales-card">
                     <div class="card-body">
-                        <h5 class="card-title">Sales <span>| Today</span></h5>
-
+                        <h5 class="card-title">Payment <span>| This year</span></h5>
                         <div class="d-flex align-items-center">
-                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                <i class="bi bi-cart"></i>
-                            </div>
                             <div class="ps-3">
-                                <h6>145</h6>
-                                <span class="text-success small pt-1 fw-bold">12%</span> <span
-                                    class="text-muted small pt-2 ps-1">increase</span>
-
+                                <span class="text-success small pt-1 fw-bold fs-2">{{$countPayment}}</span> <span
+                                    class="text-muted small pt-2 ps-1">payment</span>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
 
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Column Chart</h5>
+                        <h5 class="card-title">Event</h5>
 
                         <!-- Column Chart -->
                         <div id="columnChart"></div>
@@ -142,7 +123,7 @@
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Bar Chart</h5>
+                        <h5 class="card-title">Payment</h5>
 
                         <!-- Bar Chart -->
                         <div id="barChart"></div>
@@ -184,7 +165,7 @@
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Pie Chart</h5>
+                        <h5 class="card-title">Event Participants</h5>
 
                         <!-- Pie Chart -->
                         <div id="pieChart"></div>
@@ -209,116 +190,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-lg-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Donut Chart</h5>
-
-                        <!-- Donut Chart -->
-                        <div id="donutChart"></div>
-
-                        <script>
-                            document.addEventListener("DOMContentLoaded", () => {
-                                new ApexCharts(document.querySelector("#donutChart"), {
-                                    series: [44, 55, 13, 43, 22],
-                                    chart: {
-                                        height: 350,
-                                        type: 'donut',
-                                        toolbar: {
-                                            show: true
-                                        }
-                                    },
-                                    labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
-                                }).render();
-                            });
-                        </script>
-                        <!-- End Donut Chart -->
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Radar Chart</h5>
-
-                        <!-- Radar Chart -->
-                        <div id="radarChart"></div>
-
-                        <script>
-                            document.addEventListener("DOMContentLoaded", () => {
-                                new ApexCharts(document.querySelector("#radarChart"), {
-                                    series: [{
-                                        name: 'Series 1',
-                                        data: [80, 50, 30, 40, 100, 20],
-                                    }],
-                                    chart: {
-                                        height: 350,
-                                        type: 'radar',
-                                    },
-                                    xaxis: {
-                                        categories: ['January', 'February', 'March', 'April', 'May', 'June']
-                                    }
-                                }).render();
-                            });
-                        </script>
-                        <!-- End Radar Chart -->
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Radial Bar Chart</h5>
-
-                        <!-- Radial Bar Chart -->
-                        <div id="radialBarChart"></div>
-
-                        <script>
-                            document.addEventListener("DOMContentLoaded", () => {
-                                new ApexCharts(document.querySelector("#radialBarChart"), {
-                                    series: [44, 55, 67, 83],
-                                    chart: {
-                                        height: 350,
-                                        type: 'radialBar',
-                                        toolbar: {
-                                            show: true
-                                        }
-                                    },
-                                    plotOptions: {
-                                        radialBar: {
-                                            dataLabels: {
-                                                name: {
-                                                    fontSize: '22px',
-                                                },
-                                                value: {
-                                                    fontSize: '16px',
-                                                },
-                                                total: {
-                                                    show: true,
-                                                    label: 'Total',
-                                                    formatter: function(w) {
-                                                        // By default this function returns the average of all series. The below is just an example to show the use of custom formatter function
-                                                        return 249
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    },
-                                    labels: ['Apples', 'Oranges', 'Bananas', 'Berries'],
-                                }).render();
-                            });
-                        </script>
-                        <!-- End Radial Bar Chart -->
-
-                    </div>
-                </div>
-            </div>
-
         </div>
     </section>
 </main><!-- End #main -->

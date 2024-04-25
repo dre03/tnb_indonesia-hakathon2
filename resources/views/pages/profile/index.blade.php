@@ -4,16 +4,34 @@
     <div class="pagetitle">
         <h1>{{ $title }}</h1>
     </div>
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     <section class="section profile">
         <div class="row">
             <div class="col-xl-4">
 
                 <div class="card">
                     <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-
-                        <img src="{{ asset('/assets/img/messages-3.jpg') }}" alt="Profile" class="rounded-circle">
-                        <h2>{{Auth::user()->name}}</h2>
-                        <h3>Web Designer</h3>
+                        @if (Auth::user()->profile)
+                            <img src="{{ asset('/storage/users/' . Auth::user()->profile) }}" class="rounded-circle"
+                                alt="Error Image">
+                        @else
+                            <img src="https://cdn-icons-png.flaticon.com/512/9131/9131529.png" class="rounded-circle"
+                                alt="Error Image">
+                        @endif
+                        <h2>{{ Auth::user()->name }}</h2>
+                        <h3>{{ Auth::user()->role->name }}</h3>
                         <div class="social-links mt-2">
                             <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
                             <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
@@ -45,57 +63,59 @@
                             </li>
                         </ul>
                         <div class="tab-content pt-2">
-
                             <div class="tab-pane fade show active profile-overview" id="profile-overview">
                                 <h5 class="card-title">Profile Details</h5>
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label ">Nama Lengkap</div>
-                                    <div class="col-lg-9 col-md-8">{{Auth::user()->name}}</div>
+                                    <div class="col-lg-9 col-md-8">{{ Auth::user()->name }}</div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label">Email</div>
-                                    <div class="col-lg-9 col-md-8">{{Auth::user()->email}}</div>
+                                    <div class="col-lg-9 col-md-8">{{ Auth::user()->email }}</div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label">No Telepon</div>
-                                    <div class="col-lg-9 col-md-8">{{Auth::user()->phone_number}}</div>
+                                    <div class="col-lg-9 col-md-8">{{ Auth::user()->phone_number }}</div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label">Username</div>
-                                    <div class="col-lg-9 col-md-8">{{Auth::user()->username}}</div>
+                                    <div class="col-lg-9 col-md-8">{{ Auth::user()->username }}</div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label">Tanggal Lahir</div>
-                                    <div class="col-lg-9 col-md-8">{{Auth::user()->brith_date}}</div>
+                                    <div class="col-lg-9 col-md-8">{{ Auth::user()->brith_date }}</div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label">Tempat Lahir</div>
-                                    <div class="col-lg-9 col-md-8">{{Auth::user()->brith_place}}</div>
+                                    <div class="col-lg-9 col-md-8">{{ Auth::user()->brith_place }}</div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label">Jenis Kelamin</div>
-                                    <div class="col-lg-9 col-md-8">{{Auth::user()->gender}}</div>
+                                    <div class="col-lg-9 col-md-8">{{ Auth::user()->gender }}</div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label">Role</div>
-                                    <div class="col-lg-9 col-md-8">{{Auth::user()->role->name}}</div>
+                                    <div class="col-lg-9 col-md-8">{{ Auth::user()->role->name }}</div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label">Alamat</div>
-                                    <div class="col-lg-9 col-md-8">{{Auth::user()->address}}</div>
+                                    <div class="col-lg-9 col-md-8">{{ Auth::user()->address }}</div>
                                 </div>
                             </div>
 
                             <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
                                 <!-- Profile Edit Form -->
-                                <form>
+                                <form action="{{ route('profile.update') }}" method="POST"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PUT')
                                     <div class="row mb-3">
                                         <label for="profileImage"
                                             class="col-md-4 col-lg-3 col-form-label">Profile</label>
@@ -108,32 +128,48 @@
                                         <label for="name" class="col-md-4 col-lg-3 col-form-label">Nama
                                             Lengkap</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="name" type="text" class="form-control" id="name"
-                                                value="{{Auth::user()->name}}">
+                                            <input name="name" type="text"
+                                                class="form-control @error('name') is-invalid @enderror"
+                                                id="name" value="{{ Auth::user()->name }}" required>
+                                            @error('name')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="email" type="email" class="form-control" id="Email"
-                                                value="{{Auth::user()->email}}">
+                                            <input name="email" type="email"
+                                                class="form-control @error('email') is-invalid @enderror"
+                                                id="Email" value="{{ Auth::user()->email }}" required>
+                                            @error('email')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <label for="phone_number" class="col-md-4 col-lg-3 col-form-label">No
                                             Telepon</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="phone_number" type="text" class="form-control"
-                                                id="phone_number" value="{{Auth::user()->phone_number}}">
+                                            <input name="phone_number" type="number"
+                                                class="form-control @error('phone_number') is-invalid @enderror"
+                                                id="phone_number" value="{{ Auth::user()->phone_number }}" required>
+                                            @error('phone_number')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label for="usernmae"
+                                        <label for="username"
                                             class="col-md-4 col-lg-3 col-form-label">Username</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="usernmae" type="text" class="form-control"
-                                                id="usernmae" value="{{Auth::user()->username}}">
+                                            <input name="username" type="text"
+                                                class="form-control @error('username') is-invalid @enderror"
+                                                id="username" value="{{ Auth::user()->username }}" required>
+                                            @error('username')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -141,8 +177,12 @@
                                         <label for="Tanggal Lahir" class="col-md-4 col-lg-3 col-form-label">Tanggal
                                             Lahir</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="brith_date" type="text" class="form-control"
-                                                id="brith_date" value="{{Auth::user()->brith_date}}">
+                                            <input name="brith_date" type="date"
+                                                class="form-control @error('brith_date') is-invalid @enderror"
+                                                id="brith_date" value="{{ Auth::user()->brith_date }}" required>
+                                            @error('brith_date')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -150,8 +190,12 @@
                                         <label for="brith_place" class="col-md-4 col-lg-3 col-form-label">Tempat
                                             Lahir</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="brith_place" type="text" class="form-control"
-                                                id="brith_place" value="{{Auth::user()->brith_place}}">
+                                            <input name="brith_place" type="text"
+                                                class="form-control @error('brith_place') is-invalid @enderror"
+                                                id="brith_place" value="{{ Auth::user()->brith_place }}" required>
+                                            @error('brith_place')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -159,21 +203,34 @@
                                         <label for="gender" class="col-md-4 col-lg-3 col-form-label">Jenis
                                             Kelamin</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <select name="genderSpeaker" id="genderSpeaker" class="form-select">
+                                            <select name="gender" id="gender"
+                                                class="form-select @error('gender') is-invalid @enderror" required>
                                                 <option value="">Pilih Jenis Kelamin</option>
-                                                <option value="Laki-Laki" selected>Laki-Laki</option> 
-                                                <option value="">Perempuan</option>
+                                                <option value="Laki-Laki"
+                                                   {{ (Auth::user()->gender == 'Laki-Laki' || old('gender') == 'Laki-Laki') ? 'selected' : '' }}>
+                                                    Laki-Laki</option>
+                                                <option value="Perempuan"
+                                                    {{ (Auth::user()->gender == 'Perempuan' || old('gender') == 'Perempuan') ? 'selected' : '' }}>
+                                                    Perempuan</option>
                                             </select>
+                                            @error('gender')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <label for="address" class="col-md-4 col-lg-3 col-form-label">Alamat</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="address" type="text" class="form-control" id="address" value="{{Auth::user()->address}}">
+                                            <input name="address" type="text"
+                                                class="form-control @error('address') is-invalid @enderror"
+                                                id="address" value="{{ Auth::user()->address }}" required>
+                                            @error('address')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="text-center">
-                                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                                        <button type="submit" class="btn btn-primary">Simpan</button>
                                     </div>
                                 </form><!-- End Profile Edit Form -->
 

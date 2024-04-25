@@ -61,4 +61,10 @@ class User extends Authenticatable
     public function participants() {
         return $this->hasMany(Participant::class, 'user_id', 'id');
     }
+
+    function hasRole(string $role)
+    {
+        return User::role()->where('name', $role)->first();
+    }
+
 }

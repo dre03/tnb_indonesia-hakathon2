@@ -26,13 +26,31 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        if (Auth::attempt($credentials)) {
+        // if (Auth::attempt($credentials)) {
+        //     $request->session()->regenerate();
+        //     return redirect()->intended(route('dashboard'))->with('lengkapiProfile', 'Segera lengkapi Profile Anda');
+        // }
+        // return back()->with([
+        //     'loginError' => 'Username atau Password Salah',
+        // ]);
+
+        if (auth()->attempt($credentials)) {
+
+            // buat ulang session login
             $request->session()->regenerate();
-            return redirect()->intended(route('dashboard'))->with('lengkapiProfile', 'Segera lengkapi Profile Anda');
+
+            if (auth()->user()->role_id === 1) {
+                // jika user superadmin
+                return redirect()->intended(route('dashboard'))->with('lengkapiProfile', 'Segera lengkapi Profile Anda');
+            } elseif(auth()->user()->role_id === 2) {
+                // jika user pegawai
+                return redirect()->intended('/home');
+            }
         }
-        return back()->with([
-            'loginError' => 'Username atau Password Salah',
-        ]);
+
+        // jika email atau password salah
+        // kirimkan session error
+        return back()->with('error', 'email atau password salah');
     }
 
     public function store(Request $request)
